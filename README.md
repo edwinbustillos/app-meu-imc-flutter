@@ -17,7 +17,8 @@ Estas instruções fornecerão uma cópia do projeto em funcionamento na sua má
 ### Pré-requisitos
 O que você precisa para instalar o software e como instalá-lo:
 
-- Flutter SDK
+- Flutter SDK - 3.16 
+- Dart 3.2.6
 - Um editor de código como VS Code ou Android Studio
 
 ### Instalação
