@@ -1,5 +1,5 @@
 # Meu IMC
-Este é um App para Android / IOS projeto desenvolvido em Flutter, que tem como objetivo cumprir com desafio do curso Flutter Specialist da Dio.me 
+Este é um App para Android / IOS projeto desenvolvido em Flutter, que tem como objetivo cumprir com desafio do curso Flutter Specialist da Dio.me e o Bootcamp Flutter da appbrewery.com
 
 ### Screenshots
 <p float="left">
