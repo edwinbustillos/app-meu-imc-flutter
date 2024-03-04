@@ -24,6 +24,7 @@ O que você precisa para instalar o software e como instalá-lo:
 ### Instalação
 1. Clone o repositório
 ```
+git clone https://github.com/edwinbustillos/app-meu-imc-flutter.git
 ```
 
 2. Entre no diretório do projeto
