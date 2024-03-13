@@ -51,5 +51,15 @@ flutter pub get
 flutter run
 ```
 
+5. Generate Icons 
+```
+flutter pub run flutter_launcher_icons
+````
+
+6. Build
+```
+keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
 ### Contribuindo
 Contribuições e sugeestões são sempre bem-vindas! 
