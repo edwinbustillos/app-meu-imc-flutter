@@ -1,40 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:meu_imc/model/list_imc_model.dart';
+//import 'package:meu_imc/model/list_imc_model.dart';
 import 'package:meu_imc/model/gender_model.dart';
 import 'package:provider/provider.dart';
 import 'package:meu_imc/utils/colors.dart';
+import 'package:meu_imc/utils/sqlite.dart';
 
-class Page3 extends StatelessWidget {
+class Page3 extends StatefulWidget {
   const Page3({super.key});
 
   @override
+  _Page3State createState() => _Page3State();
+}
+
+class _Page3State extends State<Page3> {
+  var dbHelper = DatabaseHelper();
+
+  @override
   Widget build(BuildContext context) {
-    var list = Provider.of<ListImcModel>(context);
+    //var list = Provider.of<ListImcModel>(context);
     var gender = Provider.of<GenderModel>(context);
     var nomeController = TextEditingController();
+    var dbHelper = DatabaseHelper();
     return Column(
       children: <Widget>[
         Expanded(
-          child: ListView.builder(
-            itemCount: list.listImc.length,
-            itemBuilder: (context, index) {
-              var item = list.listImc[index];
-              return ListTile(
-                title: Text(item.nome),
-                subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(item.imcText), Text('IMC:' + item.imc)]),
-                leading: Icon(Icons.fitness_center, color: item.imcColor),
-                trailing: GestureDetector(
-                  onTap: () {
-                    list.removeListImc(item);
+          child: FutureBuilder<List<Map>>(
+            future: dbHelper.getIMCs(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(
+                    child: Text('Erro: ${snapshot.error.toString()}'));
+              } else {
+                var list = snapshot.data;
+                return ListView.builder(
+                  itemCount: list?.length,
+                  itemBuilder: (context, index) {
+                    var item = list?[index];
+                    return ListTile(
+                      title: Text(item?['nome']),
+                      subtitle: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(item?['imc']),
+                            Text('IMC:' + item?['resultado'])
+                          ]),
+                      leading:
+                          const Icon(Icons.fitness_center, color: Colors.green),
+                      trailing: GestureDetector(
+                        onTap: () {
+                          dbHelper.deleteIMC(item?['id']);
+                          setState(() {});
+                        },
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                      ),
+                    );
                   },
-                  child: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                ),
-              );
+                );
+              }
             },
           ),
         ),
@@ -89,14 +116,12 @@ class Page3 extends StatelessWidget {
                           foregroundColor: MyColors.activeColorText,
                         ),
                         onPressed: () {
-                          list.addListImc(
-                            ListImcModel(
-                              nomeController.text,
-                              gender.imc.toStringAsFixed(2),
-                              gender.imcText,
-                              gender.imcTextColor,
-                            ),
+                          dbHelper.saveIMC(
+                            nomeController.text,
+                            gender.imcText,
+                            gender.imc.toStringAsFixed(2),
                           );
+                          setState(() {});
                           Navigator.of(bc).pop();
                         },
                         child: const Text('Salvar'),

@@ -11,6 +11,15 @@ Este é um App para Android / IOS projeto desenvolvido em Flutter, que tem como 
   <img src="screenshots/6.png" width="200" /> 
 </p>
 
+### Funcionalidades
+Este aplicativo tem as seguintes funcionalidades:
+
+1. Cálculo do Índice de Massa Corporal (IMC).
+2. Exibição do resultado do IMC com interpretação (abaixo do peso, normal, sobrepeso, etc.).
+3. Armazenamento do histórico de cálculos de IMC.
+4. Possibilidade de excluir cálculos de IMC do histórico.
+5. Interface amigável e fácil de usar.
+
 ### Começando
 Estas instruções fornecerão uma cópia do projeto em funcionamento na sua máquina local para fins de desenvolvimento e teste.
 
